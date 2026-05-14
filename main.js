@@ -1,106 +1,142 @@
-/* ── Design tokens ──────────────────────────────────────────────────────── */
-:root {
-  /* Brand */
-  --crimson:        #73233C;
-  --crimson-dim:    rgba(115, 35, 60, 0.15);
-  --crimson-glow:   rgba(115, 35, 60, 0.07);
-
-  /* Neutrals */
-  --ivory:          #fdf8f2;
-  --ivory-warm:     #f4ece0;
-  --ivory-deep:     #ece0d2;
-  --border:         #e4d8cc;
-
-  /* Ink */
-  --ink:            #2c1e16;
-  --ink-mid:        #5a3d2e;
-  --ink-muted:      #9a7a65;
-  --ink-dark:       #1e1310;
-
-  /* Gold */
-  --gold:           #c9a87c;
-  --gold-faint:     rgba(201, 168, 124, 0.25);
-  --gold-mid:       rgba(201, 168, 124, 0.65);
-
-  /* Typography */
-  --font-serif:     'Cormorant Garamond', Georgia, serif;
-  --font-sans:      'Jost', system-ui, sans-serif;
-
-  /* Layout */
-  --max-w:          780px;
-  --radius:         2px;
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(155deg, var(--ivory) 0%, var(--ivory-warm) 55%, var(--ivory-deep) 100%);
 }
 
-/* ── Reset ──────────────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* left-edge crimson accent */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--crimson);
+  opacity: 0.3;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+.hero__botanical {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.hero__botanical--tl { top: -20px; left: -20px; width: 220px; }
+.hero__botanical--br { bottom: -20px; right: -20px; width: 200px; transform: rotate(180deg); }
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.9s ease both;
 }
 
-body {
-  background: var(--ivory);
+.hero__eyebrow {
+  color: var(--crimson);
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+.hero__names {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 300;
   color: var(--ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
 }
 
-img, svg { display: block; max-width: 100%; }
-a        { color: inherit; }
-
-/* ── Scrollbar ──────────────────────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 5px; }
-::-webkit-scrollbar-track { background: var(--ivory); }
-::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 3px; opacity: 0.5; }
-
-/* ── Focus ──────────────────────────────────────────────────────────────── */
-:focus-visible {
-  outline: 2px solid var(--crimson);
-  outline-offset: 3px;
+.hero__amp {
+  font-style: italic;
+  color: var(--crimson);
+  opacity: 0.7;
+  margin: 0 0.2em;
 }
 
-/* ── Typography scale ───────────────────────────────────────────────────── */
-.t-eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+.hero__rule {
+  width: 36px;
+  height: 1px;
+  background: var(--crimson);
+  opacity: 0.4;
+  margin: 1.8rem auto;
 }
 
-.t-section-label {
+.hero__date {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--ink-mid);
+  letter-spacing: 0.04em;
+}
+
+.hero__nav {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
   font-family: var(--font-sans);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-muted);
-  text-align: center;
-  margin-bottom: 0.6rem;
 }
 
-.t-section-label--gold  { color: var(--gold); }
-.t-section-label--left  { text-align: left; }
+.hero__nav a {
+  text-decoration: none;
+  color: var(--ink-mid);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.hero__nav a:hover {
+  color: var(--crimson);
+  border-color: var(--crimson);
+}
 
-.t-heading {
+/* ── Sections ───────────────────────────────────────────────────────────── */
+.section {
+  padding: 6rem 2rem;
+  opacity: 0;
+  animation: fadeUp 0.7s ease both;
+  animation-play-state: paused;
+}
+
+.section.is-visible {
+  animation-play-state: running;
+}
+
+.section--tinted { background: var(--ivory-warm); }
+.section--dark   { background: var(--ink); }
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.footer {
+  background: var(--ink-dark);
+  padding: 2.25rem 2rem;
+  text-align: center;
+}
+
+.footer__names {
   font-family: var(--font-serif);
-  font-size: clamp(1.9rem, 4vw, 2.8rem);
-  font-weight: 300;
-  letter-spacing: 0.03em;
-  color: var(--ink);
-  text-align: center;
-  margin-bottom: 3rem;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
 }
 
-.t-heading--light { color: var(--ivory); }
+.footer__sub {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(201, 168, 124, 0.38);
+}
 
-/* ── Animations ─────────────────────────────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .hero__botanical--tl { width: 150px; }
+  .hero__botanical--br { width: 130px; }
 }
